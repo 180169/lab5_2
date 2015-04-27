@@ -1,8 +1,11 @@
 package edu.iis.mto.integrationtest.config;
 
+import edu.iis.mto.integrationtest.main.ApplicationMain;
 import edu.iis.mto.integrationtest.utils.ModeUtils;
 import javax.sql.DataSource;
 import org.h2.Driver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,15 +22,16 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import static edu.iis.mto.integrationtest.main.ApplicationMain.LOGGER;
+
 
 @Configuration //wskazuje, ¿e klasa zawiera konfiguracjê bean’ów Spring
 @EnableTransactionManagement //umo¿lwia konfigurowanie mechanizmów transakcji z wykorzystaniem adnotacji
 @EnableJpaRepositories( basePackages = { "edu.iis.mto.integrationtest.repository" } ) //okreœla gdzie szukaæ klas definiuj¹cych repozytoria Spring Data.
 public class PersistenceConfig {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger( ApplicationMain.class );
     private final String SQL_FOLDER_NAME = "sql/";
-    private final String SQL_SCHEMA_SCRIPT_PATH = "schema-script.sql";
+    private final String SQL_SCHEMA_SCRIPT_PATH = SQL_FOLDER_NAME + "schema-script.sql";
     private final String DATA_SCRIPT_FILENAME_SUFFIX = "-data-script.sql";
 
     @Value( "${database.url}" )
