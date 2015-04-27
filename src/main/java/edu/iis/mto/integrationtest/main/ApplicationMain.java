@@ -1,22 +1,20 @@
 package edu.iis.mto.integrationtest.main;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import edu.iis.mto.integrationtest.utils.Mode;
 import edu.iis.mto.integrationtest.utils.ModeUtils;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ApplicationMain {
 
 //    private static ApplicationContext applicationContext;
 //
-    private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationMain.class);
+    public static final Logger LOGGER = LoggerFactory.getLogger( ApplicationMain.class );
 
-    public static void main(String[] args) {
+    public static void main( String[] args ) {
         /* Ustawienie trybu dzia³ania aplikacji */
-        ModeUtils.setMode(Mode.DEV);
-        LOGGER.debug("Application mode set to ", Mode.DEV);
+        ModeUtils.setMode( Mode.DEV );
+        LOGGER.debug( "Application mode set to ", Mode.DEV );
 //
 //        /* Konfiguracja kontekstu Spring i pobranie z kontenera bean'a reprezentujacego repozytorium danych*/
 //        applicationContext = new AnnotationConfigApplicationContext(ApplicationConfig.class);
