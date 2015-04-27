@@ -39,6 +39,16 @@ public class PersonRepositoryIntegrationTest extends IntegrationTest {
         assertEquals( count - 1, personRepository.count() );
     }
 
+    @DirtiesContext
+    @Test
+    public void testUpdatePerson_SetNameToMancini_WhereId1() {
+        long count = personRepository.count();
+        personRepository.save( a( person().withId( (long) 1 ).withFirstName( "Mancini" ).withLastName( "Testowy1" ) ) );
+        assertEquals( count, personRepository.count() );
+        assertEquals( "Mancini", personRepository.findOne( (long) 1 ).getFirstName() );
+
+    }
+
     private Person a( PersonBuilder builder ) {
         return builder.build();
     }
