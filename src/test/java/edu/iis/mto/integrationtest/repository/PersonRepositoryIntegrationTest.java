@@ -8,6 +8,7 @@ import org.springframework.test.annotation.DirtiesContext;
 
 import static edu.iis.mto.integrationtest.repository.PersonBuilder.person;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class PersonRepositoryIntegrationTest extends IntegrationTest {
 
@@ -54,6 +55,21 @@ public class PersonRepositoryIntegrationTest extends IntegrationTest {
     public void testReadPerson_lastNameEqualsTestowy1() {
         assertEquals( "Testowy1", personRepository.findOne( (long) 1 ).getLastName() );
 
+    }
+
+    @DirtiesContext
+    @Test
+    public void testFindByFirstNameLike_Marian_expectedListWith2Results() {
+        long count = personRepository.count();
+        personRepository.save( a( person().withId( count + 1 )
+                .withFirstName( "Roberto" ).withLastName( "Mancini" ) ) );
+        List< Person> foundPersons = personRepository.findByFirstNameLike( "Marian" );
+
+        assertEquals( 2, foundPersons.size() );
+        for ( Person foundPerson : foundPersons ) {
+            assertEquals( "Marian", foundPerson.getFirstName() );
+        }
+        assertNotEquals( foundPersons.size(), (int) personRepository.count() );
     }
 
     private Person a( PersonBuilder builder ) {
