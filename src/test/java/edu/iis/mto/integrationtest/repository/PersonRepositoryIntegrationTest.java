@@ -49,6 +49,13 @@ public class PersonRepositoryIntegrationTest extends IntegrationTest {
 
     }
 
+    @DirtiesContext
+    @Test
+    public void testReadPerson_lastNameEqualsTestowy1() {
+        assertEquals( "Testowy1", personRepository.findOne( (long) 1 ).getLastName() );
+
+    }
+
     private Person a( PersonBuilder builder ) {
         return builder.build();
     }
