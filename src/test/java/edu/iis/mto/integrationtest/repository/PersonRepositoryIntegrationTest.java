@@ -31,6 +31,13 @@ public class PersonRepositoryIntegrationTest extends IntegrationTest {
                 .getLastName() );
     }
 
+    @DirtiesContext
+    @Test
+    public void testDeletePerson_CheckRepositoryCountEquals1() {
+        long count = personRepository.count();
+        personRepository.delete( count );
+        assertEquals( count - 1, personRepository.count() );
+    }
 
     private Person a( PersonBuilder builder ) {
         return builder.build();
